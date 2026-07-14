@@ -78,6 +78,7 @@ export const experience: ExperienceEntry[] = [
 export type Project = {
   slug: string
   title: string
+  link?: string
   tagline: string
   period: string
   tech: string[]
@@ -151,6 +152,7 @@ export const projects: Project[] = [
   {
     slug: 'cardiovision',
     title: 'CardioVision — Cardiovascular Disease Risk Prediction & Evaluation System',
+    link: 'https://au01909.github.io/CardioVision-Predictive-Analytics-for-Cardiovascular-Health/',
     tagline: 'An XGBoost clinical risk model with a full evaluation harness and a live Streamlit dashboard.',
     period: '2026',
     tech: ['Python', 'XGBoost', 'MLflow', 'Streamlit', 'Scikit-learn'],
@@ -181,39 +183,9 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: 'action-recognition-lstm',
-    title: 'Real-Time Human Action Recognition using LSTM',
-    tagline: 'A webcam-based pipeline that classifies human actions in real time from pose keypoints.',
-    period: '2026',
-    tech: ['Python', 'OpenCV', 'MediaPipe', 'LSTM'],
-    bullets: [
-      'Achieved 96% accuracy with sub-100ms inference latency by feeding temporal pose-keypoint sequences into an LSTM network.',
-      'Improved generalization across 4 action classes by tuning sequence length, hidden-layer size, and dropout, validated via confusion-matrix analysis on held-out video.',
-      'Built a live webcam pipeline that buffers frame sequences and streams predictions in real time.',
-    ],
-    featured: true,
-    detail: {
-      overview:
-        'This project classifies human actions from live video by tracking pose keypoints and feeding their motion over time into an LSTM network — built for real-time use rather than offline batch classification.',
-      sections: [
-        {
-          heading: 'Pipeline',
-          body: 'Pose keypoints are extracted per frame with OpenCV and MediaPipe, then assembled into temporal sequences that an LSTM network was trained on to classify the action being performed.',
-        },
-        {
-          heading: 'Tuning for generalization',
-          body: 'Sequence length, hidden-layer size, and dropout were tuned to improve generalization across four action classes, with performance validated using accuracy and confusion-matrix analysis on held-out video sequences.',
-        },
-        {
-          heading: 'Real-time constraint',
-          body: 'The model runs inference in under 100ms per prediction, fast enough to buffer and stream live webcam frames through the pipeline and get continuous predictions rather than a delayed batch result.',
-        },
-      ],
-    },
-  },
-  {
     slug: 'qwen-qlora-finetuning',
     title: 'Domain-Adaptive Fine-Tuning of Qwen2.5-3B-Instruct with QLoRA',
+    link: 'https://github.com/au01909/qwen2.5-3b-qlora-customer-support',
     tagline: 'Fine-tuned a 3B instruction model on a custom dataset using memory-efficient QLoRA.',
     period: 'Jul 2026',
     tech: ['QLoRA', 'PEFT', 'Hugging Face Transformers', 'MLflow'],
@@ -237,39 +209,11 @@ export const projects: Project[] = [
       ],
     },
   },
-  {
-    slug: 'playwright-ai-automation',
-    title: 'Playwright-Based AI Test Automation Framework',
-    tagline: 'A TypeScript/Playwright framework that writes and heals its own browser tests.',
-    period: 'Jun 2026',
-    tech: ['TypeScript', 'Playwright', 'LLMs'],
-    bullets: [
-      'Reduced UI test development time by 60% with a framework that generates browser test scenarios directly from natural-language prompts.',
-      'Self-heals broken locators using LLMs, improving automation resilience across complex, changing UI workflows.',
-    ],
-    featured: true,
-    detail: {
-      overview:
-        'A TypeScript and Playwright framework aimed at the most fragile part of UI automation: locators that break the moment a front end changes. It generates test scenarios from plain-language prompts and repairs broken locators automatically using an LLM.',
-      sections: [
-        {
-          heading: 'Generation from prompts',
-          body: 'Instead of hand-writing Playwright scripts for every scenario, the framework takes a natural-language description of a browser flow and generates the corresponding test scenario.',
-        },
-        {
-          heading: 'Self-healing locators',
-          body: 'When a UI change breaks an existing locator, the framework uses an LLM to identify the updated element and repair the locator automatically, rather than failing the suite outright.',
-        },
-        {
-          heading: 'Result',
-          body: 'Together, these cut UI test development time by roughly 60% and made the automation suite noticeably more resilient across complex, frequently changing workflows.',
-        },
-      ],
-    },
-  },
+  
   {
     slug: 'network-traffic-analysis',
     title: 'Network Traffic Analysis & HTTP Load Testing Framework',
+    link: 'https://github.com/au01909/network-performance-analyzer',
     tagline: 'A Python framework for inspecting live traffic and stress-testing services under concurrent load.',
     period: 'Jun 2026',
     tech: ['Python', 'Scapy', 'Sockets', 'Multithreading'],
@@ -299,20 +243,105 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: 'mcp-ai-assistant',
-    title: 'MCP-Powered AI Assistant',
-    tagline: 'A generative AI assistant that orchestrates multiple external tool servers through a single protocol.',
-    period: 'Feb 2026',
-    tech: ['Python', 'LangChain', 'OpenAI', 'MCP'],
+    slug: 'playwright-automation-framework',
+    title: 'Playwright-Based AI Test Automation Framework',
+    link: 'https://github.com/au01909/playwright-automation-framework',
+    tagline: 'A TypeScript/Playwright framework that writes and heals its own browser tests.',
+    period: 'Jun 2026',
+    tech: ['TypeScript', 'Playwright', 'LLMs'],
     bullets: [
-      'Architected a generative AI assistant using LangChain, OpenAI, and the Model Context Protocol (MCP) to orchestrate 3+ external tool servers.',
-      'Reduced manual context switching by ~70% through automated validation, exception handling, and fault-tolerant execution.',
+      'Reduced UI test development time by 60% with a framework that generates browser test scenarios directly from natural-language prompts.',
+      'Self-heals broken locators using LLMs, improving automation resilience across complex, changing UI workflows.',
     ],
-    featured: false,
+    featured: true,
+    detail: {
+      overview:
+        'A TypeScript and Playwright framework aimed at the most fragile part of UI automation: locators that break the moment a front end changes. It generates test scenarios from plain-language prompts and repairs broken locators automatically using an LLM.',
+      sections: [
+        {
+          heading: 'Generation from prompts',
+          body: 'Instead of hand-writing Playwright scripts for every scenario, the framework takes a natural-language description of a browser flow and generates the corresponding test scenario.',
+        },
+        {
+          heading: 'Self-healing locators',
+          body: 'When a UI change breaks an existing locator, the framework uses an LLM to identify the updated element and repair the locator automatically, rather than failing the suite outright.',
+        },
+        {
+          heading: 'Result',
+          body: 'Together, these cut UI test development time by roughly 60% and made the automation suite noticeably more resilient across complex, frequently changing workflows.',
+        },
+      ],
+    },
   },
   {
-    slug: 'ai-document-analysis-platform',
-    title: 'AI Document Analysis Platform / Chatbot',
+    slug: 'rever-pendant',
+    title: 'Rever Pendant',
+    link: 'https://github.com/au01909/Rever-Pendant',
+    tagline:
+      'An AI-powered wearable memory assistant that captures conversations, generates insights, and sends intelligent email reminders.',
+    period: '2025',
+    tech: [
+      'Python',
+      'FastAPI',
+      'Whisper',
+      'LLMs',
+      'RAG',
+      'ChromaDB',
+      'Speech-to-Text',
+      'Email Automation'
+    ],
+    bullets: [
+      'Built an end-to-end AI pipeline that converts spoken conversations into structured, searchable knowledge using speech recognition and LLMs.',
+      'Implemented semantic retrieval over conversation history, enabling natural-language recall of past conversations and important details.',
+      'Automated summarization, key-point extraction, and action-item generation from conversations to reduce manual note-taking.',
+      'Added an intelligent email reminder system that proactively sends notifications for commitments extracted from conversations, such as medication schedules and follow-up tasks.',
+    ],
+    featured: true,
+    detail: {
+      overview:
+        'Rever Pendant is an AI-powered wearable memory assistant that continuously captures conversations, transcribes them into text, and transforms them into actionable knowledge. Beyond searchable conversation history, it identifies reminders and commitments from discussions, automatically sending email notifications at the appropriate time—such as reminding a user to take diabetic medication at 9:00 PM.',
+      sections: [
+        {
+          heading: 'The problem',
+          body: 'Important commitments and details shared during conversations are easily forgotten. Conventional voice recorders simply store audio, leaving users to manually revisit recordings and remember follow-up actions.',
+        },
+        {
+          heading: 'How it works',
+          body: 'The wearable captures conversations, transcribes speech into text, chunks and embeds transcripts into a vector database, and retrieves relevant context when queried. An LLM generates summaries, answers questions, extracts action items, and identifies time-based reminders from conversations.',
+        },
+        {
+          heading: 'Smart reminder system',
+          body: 'When the assistant detects future commitments—such as "Take diabetic medicine at 9 PM," "Call the doctor tomorrow," or "Attend a meeting on Friday"—it schedules and sends email reminders automatically, ensuring important tasks are not missed.',
+        },
+        {
+          heading: 'Why RAG',
+          body: 'Conversation history continuously grows over time. Retrieval-Augmented Generation grounds every response in the relevant transcript instead of relying solely on model memory, resulting in more accurate recall and summaries.',
+        },
+        {
+          heading: 'Impact',
+          body: 'The project transforms passive conversation recordings into an intelligent personal memory assistant that helps users search past discussions, generate insights, and proactively remember important commitments through automated email reminders.',
+        },
+      ],
+      stack: [
+        { layer: 'Language', tech: 'Python' },
+        { layer: 'Backend', tech: 'FastAPI' },
+        { layer: 'Speech Recognition', tech: 'Whisper / Speech-to-Text' },
+        { layer: 'Retrieval', tech: 'Retrieval-Augmented Generation (RAG)' },
+        { layer: 'Vector Database', tech: 'ChromaDB' },
+        { layer: 'LLM', tech: 'Gemini / OpenAI' },
+        { layer: 'Notifications', tech: 'Email Automation' },
+      ],
+      stat: [
+        { value: '100%', label: 'Automatic conversation transcription' },
+        { value: '24/7', label: 'Proactive reminder notifications' },
+        { value: '1', label: 'Unified AI memory assistant' },
+      ],
+    },
+  },
+  {
+    slug: 'AI-Document-analyst',
+    title: 'AI Document Analyst Chatbot',
+    link: 'https://github.com/au01909/chatbots',
     tagline: 'A RAG document-intelligence platform for semantic search and Q&A across large document collections.',
     period: 'Jan 2026 – Feb 2026',
     tech: ['Python', 'FastAPI', 'LangChain', 'ChromaDB', 'Gemini API'],
@@ -325,6 +354,7 @@ export const projects: Project[] = [
   {
     slug: 'ai-chatbot-suite',
     title: 'AI Chatbot Suite',
+    link: 'https://github.com/au01909/chatbots',
     tagline: 'Six-plus AI applications spanning document intelligence, multimodal search, and conversational analytics.',
     period: 'Jan 2026',
     tech: ['Python', 'Streamlit', 'LangChain', 'Gemini API', 'OpenCV', 'PaddleOCR', 'ChromaDB'],
@@ -334,6 +364,53 @@ export const projects: Project[] = [
     ],
     featured: false,
   },
+  
+  {
+    slug: 'action-recognition-lstm',
+    title: 'Real-Time Human Action Recognition using LSTM',
+    link: 'https://github.com/au01909/real_time_violence_detection',
+    tagline: 'A webcam-based pipeline that classifies human actions in real time from pose keypoints.',
+    period: '2025',
+    tech: ['Python', 'OpenCV', 'MediaPipe', 'LSTM'],
+    bullets: [
+      'Achieved 96% accuracy with sub-100ms inference latency by feeding temporal pose-keypoint sequences into an LSTM network.',
+      'Improved generalization across 4 action classes by tuning sequence length, hidden-layer size, and dropout, validated via confusion-matrix analysis on held-out video.',
+      'Built a live webcam pipeline that buffers frame sequences and streams predictions in real time.',
+    ],
+    featured: true,
+    detail: {
+      overview:
+        'This project classifies human actions from live video by tracking pose keypoints and feeding their motion over time into an LSTM network — built for real-time use rather than offline batch classification.',
+      sections: [
+        {
+          heading: 'Pipeline',
+          body: 'Pose keypoints are extracted per frame with OpenCV and MediaPipe, then assembled into temporal sequences that an LSTM network was trained on to classify the action being performed.',
+        },
+        {
+          heading: 'Tuning for generalization',
+          body: 'Sequence length, hidden-layer size, and dropout were tuned to improve generalization across four action classes, with performance validated using accuracy and confusion-matrix analysis on held-out video sequences.',
+        },
+        {
+          heading: 'Real-time constraint',
+          body: 'The model runs inference in under 100ms per prediction, fast enough to buffer and stream live webcam frames through the pipeline and get continuous predictions rather than a delayed batch result.',
+        },
+      ],
+    },
+  },
+  {
+    slug: 'mcp-ai-assistant',
+    title: 'MCP-Powered AI Assistant',
+    link: ' https://github.com/au01909/AI-assisstant-MCP',
+    tagline: 'A generative AI assistant that orchestrates multiple external tool servers through a single protocol.',
+    period: 'Feb 2026',
+    tech: ['Python', 'LangChain', 'OpenAI', 'MCP'],
+    bullets: [
+      'Architected a generative AI assistant using LangChain, OpenAI, and the Model Context Protocol (MCP) to orchestrate 3+ external tool servers.',
+      'Reduced manual context switching by ~70% through automated validation, exception handling, and fault-tolerant execution.',
+    ],
+    featured: false,
+  },
+  
   {
     slug: 'pytest-api-automation',
     title: 'Pytest-Based API Test Automation for Website QA',
@@ -349,6 +426,7 @@ export const projects: Project[] = [
   {
     slug: 'sudoku-solver',
     title: 'Sudoku Solver Web Application',
+    link: 'https://sudoku-solver-lvng.onrender.com',
     tagline: 'A responsive Sudoku solver built on an optimized backtracking algorithm.',
     period: 'Dec 2024',
     tech: ['HTML', 'CSS', 'JavaScript'],

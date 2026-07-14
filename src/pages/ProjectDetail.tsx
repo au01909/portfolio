@@ -48,7 +48,22 @@ export default function ProjectDetail() {
 
           <Reveal delay={60}>
             <p className="eyebrow text-primary mt-8 mb-3">{project.period}</p>
-            <h1 className="text-3xl md:text-5xl leading-tight max-w-3xl mb-6">{project.title}</h1>
+            {project.link ? (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block max-w-3xl mb-6"
+              >
+                <h1 className="text-3xl md:text-5xl leading-tight border-b border-transparent hover:border-current transition-colors duration-200">
+                  {project.title}
+                </h1>
+              </a>
+            ) : (
+              <h1 className="text-3xl md:text-5xl leading-tight max-w-3xl mb-6">
+                {project.title}
+              </h1>
+            )}
             <p className="text-xl text-muted max-w-2xl leading-relaxed">{project.tagline}</p>
           </Reveal>
 
