@@ -1,42 +1,41 @@
-// All content here is sourced directly from Aryan's resumes and case study.
-// No invented projects, metrics, or claims.
+// Single source of content. Every claim here was checked against a repo README, code, test run,
+// the resume, or the Notion portfolio — see docs/portfolio-audit.md and docs/portfolio-artifacts.md.
+// Do not add a metric unless its source is recorded there.
+
+export const SITE_URL = 'https://au01909.github.io/portfolio/'
 
 export const profile = {
   name: 'Aryan Uppuganti',
-  role: 'Software Engineer — AI Systems & Test Automation',
+  headline: 'Software Engineer | AI-Native Product Builder',
+  intro:
+    'I build software and AI-powered products around real user problems. As an Artificial Intelligence and Machine Learning engineering graduate, I combine software engineering, agentic systems, and product thinking to turn ambiguous ideas into useful, reliable, and secure solutions.',
+  statement:
+    'I care about more than making something work. I want to understand which problem is worth solving, why a solution should exist, how to build it well, and how to know whether it actually helps.',
+  principle: ['Build the right thing.', 'Build it well.', 'Make it trustworthy.'],
   location: 'Bengaluru, India',
-  phone: '+91 7975612469',
   email: 'au01909@gmail.com',
+  phone: '+91 7975612469',
   links: {
-    linkedin: 'https://linkedin.com',
-    github: 'https://github.com',
-    leetcode: 'https://leetcode.com',
+    github: 'https://github.com/au01909',
+    linkedin: 'https://www.linkedin.com/in/aryan-uppuganti-9079b425a/',
+    leetcode: 'https://leetcode.com/u/au01909/',
+    medium: 'https://medium.com/@au01909',
+    notion: 'https://app.notion.com/p/3dee722e7e2781d39356eabbe8fc3490',
   },
-  interests: [
-    'Artificial Intelligence',
-    'Machine Learning',
-    'Backend Engineering',
-    'Distributed Systems',
-    'Quality Engineering',
-    'Networking',
-    'Automation',
-    'Computer Vision',
-    'Developer Tools',
-  ],
 }
 
 export const education = [
   {
-    school: 'B.M.S College of Engineering, Bangalore',
+    school: 'B.M.S. College of Engineering, Bengaluru',
     degree: 'B.E. in Artificial Intelligence and Machine Learning',
     period: 'Sep 2023 – Aug 2026',
-    detail: 'GPA 9.13 / 10',
+    detail: 'Graduated · CGPA 9.13 / 10',
   },
   {
     school: 'Indian Institute of Technology Madras',
     degree: "Foundational Bachelor's in Data Science and Applications",
     period: 'Sep 2023 – Jul 2024',
-    detail: 'GPA 8.00 / 10',
+    detail: 'CGPA 8.00 / 10',
   },
 ]
 
@@ -45,22 +44,24 @@ export type ExperienceEntry = {
   role: string
   period: string
   mode: string
+  note?: string
   bullets: string[]
 }
 
 export const experience: ExperienceEntry[] = [
   {
     company: 'Zeta',
-    role: 'Graduate Intern — Software Test Engineering',
+    role: 'Graduate Intern — Software Engineering',
     period: 'Jan 2026 – Jul 2026',
     mode: 'Onsite',
+    note: 'Summaries are public-safe. Internal architecture, API contracts and production data are not published.',
     bullets: [
-      'Reduced manual QA effort by ~90% by building an AI-powered RAG assistant that turns API contracts and product documentation into standardized manual test cases and REST Assured/TestNG automation scripts.',
-      'Increased regression coverage by 60% by designing a Java-based API automation framework with REST Assured and TestNG across payment and rewards microservices, surfacing 198 tickets including 30+ functional bugs.',
-      'Designed 96 system integration test scenarios spanning refunds, cancellations, chargebacks, and reward reversals — automating 48 of them to replicate real-world transaction flows.',
-      'Validated Apache Kafka event-driven workflows and REST APIs for points and cashback issuance/reversal to ensure transactional consistency across high-volume distributed payment systems.',
+      'Increased regression coverage by 60% by designing a Java API automation framework with REST Assured and TestNG across payment and rewards microservices, surfacing 198 tickets including 30+ functional bugs.',
       'Reduced issue verification time by 40% through production debugging and root-cause analysis using Kibana, PostgreSQL, and distributed service logs.',
-      'Reduced re-deployments with fixes by 25% by integrating automated regression suites into Jenkins and GitHub Actions CI/CD pipelines.',
+      'Designed 96 system-integration test scenarios across refunds, cancellations, chargebacks, and reward reversals, and automated 48 of them.',
+      'Validated Apache Kafka event-driven workflows and REST APIs for points and cashback issuance and reversal to check transactional consistency.',
+      'Reduced re-deployments with fixes by 25% by integrating automated regression suites into Jenkins and GitHub Actions pipelines.',
+      'Built an internal AI-assisted test-authoring tool that turns engineering documentation into draft test cases and automation (self-reported ~90% less manual effort on the covered workflow).',
     ],
   },
   {
@@ -69,435 +70,502 @@ export const experience: ExperienceEntry[] = [
     period: 'Feb 2023 – Aug 2023',
     mode: 'Hybrid',
     bullets: [
-      'Improved dataset quality for computer vision models by 30% by developing Python and OpenCV preprocessing pipelines that automated image annotation, cleaning, standardization, and feature extraction.',
-      'Accelerated model training and evaluation across multiple datasets by architecting scalable, reusable data-preparation workflows for deep-learning experiments.',
+      'Improved dataset quality for computer-vision models by 30% with Python and OpenCV pipelines that automated annotation, cleaning, standardization, and feature extraction.',
+      'Built reusable data-preparation workflows that sped up training and evaluation across multiple datasets.',
     ],
   },
 ]
 
+export type Link = { label: string; url: string }
+
 export type Project = {
   slug: string
   title: string
-  link?: string
   tagline: string
   period: string
+  tier: 'flagship' | 'key' | 'client' | 'supporting'
+  problem?: string
+  contribution?: string
+  decision?: string
   tech: string[]
   bullets: string[]
-  featured: boolean
+  links: Link[]
+  image?: { src: string; alt: string }
+  architecture?: { title: string; caption: string; steps: string[]; branch?: { label: string; steps: string[] } }
+  caveat?: string
   detail?: {
     overview: string
     sections: { heading: string; body: string }[]
-    stack?: { layer: string; tech: string }[]
-    stat?: { value: string; label: string }[]
   }
 }
 
 export const projects: Project[] = [
+  // ───────────────────────── flagship ─────────────────────────
   {
-    slug: 'ai-powered-qa-assistant',
-    title: 'AI-Powered QA Assistant',
-    tagline:
-      'A RAG-powered engineering copilot that turns API contracts and documentation into production-ready QA test cases and automation scripts.',
-    period: '2026 · Zeta',
-    tech: ['Python', 'FastAPI', 'LangChain', 'RAG', 'MCP', 'ChromaDB', 'Gemini / OpenAI', 'REST Assured', 'TestNG'],
+    slug: 'trademirror',
+    title: 'TradeMirror',
+    tagline: 'A post-trade review for retail traders. Deterministic code finds the recurring behaviors; an LLM only explains them.',
+    period: '2026',
+    tier: 'flagship',
+    problem:
+      'Traders can see P&L and individual orders, but not the habits that repeat across dozens of trades, so most never review their own behavior.',
+    contribution:
+      'Scoped the product and built it end to end: CSV validation, the analysis engine, the LLM layer with fallback, the React UI, tests and deployment.',
+    decision:
+      'The LLM never computes a number. Findings come from deterministic code; the model only writes prose around validated values, and templates replace it when it fails.',
+    tech: ['TypeScript', 'Node / Express', 'Zod', 'React', 'Gemini (structured output)'],
     bullets: [
-      'Reduced manual QA effort by ~90% by automating the path from engineering documentation to manual test cases and automation scripts.',
-      'Integrated the Model Context Protocol (MCP) so the assistant could read live API contracts, feature docs, and repositories directly, with no manual uploads.',
-      'Built a retrieval pipeline (chunking, embeddings, ChromaDB semantic search) so generated tests stayed grounded in current product behavior, not stale docs.',
-      'Designed the system as four independent stages — retrieval, context construction, generation, and review — so each could evolve without a redesign.',
+      'Detects five behavioral patterns against each trader’s own baseline and surfaces at most three, each with the trades that support it.',
+      'Server test suite covers planted-pattern detection, evidence integrity, input validation and rate limits.',
+      'Review still renders with deterministic templates when the model is unavailable.',
     ],
-    featured: true,
+    links: [
+      { label: 'Live app', url: 'https://trademirror-g4gj.onrender.com/' },
+      { label: 'Source', url: 'https://github.com/au01909/trademirror' },
+      { label: 'Notion case study', url: 'https://app.notion.com/p/3dee722e7e2781fbb370dbf75acd5a0f' },
+    ],
+    image: {
+      src: 'img/trademirror-review.jpg',
+      alt: 'TradeMirror review screen for the sample dataset: 60 trades reviewed, 21 wins, 39 losses, net result −₹4,117, and a single suggested focus for next month.',
+    },
+    architecture: {
+      title: 'How a review is built',
+      caption: 'Everything above the split is deterministic and unit-tested. The model sits on one branch and can be removed without breaking the review.',
+      steps: ['CSV upload', 'Validate + normalize', 'Personal baseline', 'Pattern detectors', 'Rank, keep top 3', 'Review object'],
+      branch: { label: 'Explanation (either path fills the same fields)', steps: ['LLM explanation, schema-checked', 'or deterministic template', 'React UI + evidence drawer'] },
+    },
     detail: {
       overview:
-        "During my internship at Zeta, I noticed QA engineers were spending more time re-reading API contracts, feature specs, and product docs than actually testing. So I built an AI assistant that treats engineering documentation as a knowledge base: it retrieves the relevant context for a feature, then generates standardized manual test cases and REST Assured/TestNG automation scripts from it. It's built as an engineering copilot, not a chatbot — the output is a QA deliverable, not a conversation.",
+        'TradeMirror turns a month of trade history into the two or three recurring behaviors worth paying attention to, with the evidence, the money involved and one thing to look at next month. It is a review tool. It does not predict, advise or execute.',
       sections: [
         {
-          heading: 'The problem',
-          body: 'For every new feature, engineers manually pieced together information scattered across API contracts, product requirement docs, feature specs, internal engineering docs, and configuration files — then wrote manual test cases and automation scripts by hand. It was repetitive, inconsistent across engineers, and slow to keep current as APIs changed.',
+          heading: '1. User and problem',
+          body: 'An active retail trader with enough history to have recurring habits, but no review routine beyond a broker’s transaction log. The data exists; the synthesis does not. A trader with 60 trades does not want 60 observations.',
         },
         {
-          heading: 'How it works',
-          body: 'On a request like "generate automation for the reward reversal API," the assistant first identifies the relevant engineering resources through MCP — API contract, business rules, config, and docs — then chunks and embeds them into ChromaDB for semantic search. The most relevant context is assembled into a structured prompt (endpoints, validation rules, error scenarios) that grounds the LLM before it generates positive, negative, and edge-case test scenarios plus REST Assured/TestNG scripts.',
+          heading: '2. Journey and value',
+          body: 'Upload a CSV (or try the sample), confirm, pick a trader, read a short review, open any insight to see the exact trades behind it, and ask grounded follow-up questions. The value is a repeatable reflection loop: trade, review, notice, trade again.',
         },
         {
-          heading: 'Why RAG instead of fine-tuning',
-          body: 'API contracts and docs change often. Fine-tuning a model every time they changed would add operational overhead for no real benefit — RAG lets the assistant pull the latest documentation at query time, so outputs stay aligned with current product behavior.',
+          heading: '3. Why post-trade reflection',
+          body: 'Patterns such as sizing up right after a loss are invisible one trade at a time and obvious in aggregate. The product makes the aggregate visible. It does not claim that seeing a pattern changes behavior or returns; that is an open hypothesis, not a result.',
         },
         {
-          heading: 'Why MCP',
-          body: 'The engineering knowledge already lived across repos and internal docs. MCP gave the assistant direct, unified access to those sources instead of requiring engineers to re-upload documentation by hand every time something changed.',
+          heading: '4. Scope and deliberate exclusions',
+          body: 'No live market data, brokerage integration, trade execution, alerts, social features, predictions or recommendations. CSV rather than broker connectivity, because the first question was whether the review is useful, not whether account linking can be solved.',
         },
         {
-          heading: 'Impact',
-          body: 'Manual QA effort on the covered workflow dropped by roughly 90%, regression planning got faster, generated test cases became more consistent across engineers, and the team could spend more time on exploratory testing instead of authoring boilerplate test cases.',
+          heading: '5. CSV validation and normalization',
+          body: 'Rows are parsed and validated with Zod into one canonical Trade model. Invalid rows are skipped with warnings; duplicate trade IDs, missing columns and empty files are rejected with clear messages. IDs and symbols are limited to a safe character set because they are the only CSV text that reaches a prompt.',
+        },
+        {
+          heading: '6. Personal baselines and pattern detection',
+          body: 'Each trader is compared with their own median position size, median gap between trades, and average winning and losing duration, never with other traders. Five detectors each return nothing unless they clear their own evidence bar (for example, size at least 1.3× normal right after a loss, on at least 3 occasions).',
+        },
+        {
+          heading: '7. Ranking candidate insights',
+          body: 'Candidates are scored by financial impact, occurrence count, evidence strength and deviation from baseline. Overlapping insights are merged and only the top three are shown. If nothing qualifies, the review says "Nothing significant stood out" instead of forcing a finding.',
+        },
+        {
+          heading: '8. Deterministic math, generated prose',
+          body: 'Deterministic code decides what happened. The model writes the explanation and next action for findings that already exist and never produces a number, count or financial figure.',
+        },
+        {
+          heading: '9. Grounding and structured output',
+          body: 'The model is called with a response schema and its output is re-validated with Zod. In follow-ups, any trade ID it cites that is not in the relevant insight’s supporting set is removed before the response reaches the browser.',
+        },
+        {
+          heading: '10. Fallback behavior',
+          body: 'If the key is unset, the call fails, rate-limits, or returns invalid output, deterministic templates fill the same fields from the same review object. Failure reduces richness; it does not break the product.',
+        },
+        {
+          heading: '11. Input validation and prompt-injection defenses',
+          body: 'Three layers: charset limits on IDs and symbols, a system prompt that marks all review data and the user’s question as literal data, and output validation. A test uploads a CSV whose trade_id reads "ignore previous instructions…" and confirms the row is rejected before it reaches the model.',
+        },
+        {
+          heading: '12. Privacy for trading data',
+          body: 'Trade files are held in server memory only, with no database, and are gone on restart. Only the validated review object goes to the model provider. The public demo is meant for the sample data, not real account data.',
+        },
+        {
+          heading: '13. Tests and next experiments',
+          body: 'Tests cover gold-dataset totals, planted patterns with exact counts, evidence integrity, no-pattern input, multi-trader isolation, invalid CSVs and rate limits. Next experiments: evidence versus insight-only, three versus five insights, a return-loop prompt, and pattern recurrence across reviews.',
         },
       ],
-      stack: [
-        { layer: 'Language', tech: 'Python' },
-        { layer: 'Backend', tech: 'FastAPI' },
-        { layer: 'AI framework', tech: 'LangChain' },
-        { layer: 'Retrieval', tech: 'Retrieval-Augmented Generation (RAG)' },
-        { layer: 'Repository access', tech: 'Model Context Protocol (MCP)' },
-        { layer: 'Vector database', tech: 'ChromaDB' },
-        { layer: 'LLM', tech: 'Gemini / OpenAI' },
-        { layer: 'Automation output', tech: 'REST Assured, TestNG' },
-      ],
-      stat: [
-        { value: '~90%', label: 'Reduction in manual QA effort' },
-        { value: '4', label: 'Stage retrieval-to-generation pipeline' },
-        { value: '1', label: 'Unified interface via MCP for live docs' },
+    },
+  },
+  {
+    slug: 'repo-copilot',
+    title: 'Repo Copilot',
+    tagline: 'An agentic repository-intelligence platform: ask about a codebase and get answers tied to source files and line ranges.',
+    period: '2026',
+    tier: 'flagship',
+    problem:
+      'Understanding an unfamiliar codebase means hopping between README, entrypoints and scattered files, and generic chat answers cannot be checked against the source.',
+    contribution:
+      'Built a hybrid-retrieval core, then wrapped it in a LangGraph workflow, a Google ADK tool-calling agent with typed repository tools, and MLflow tracking.',
+    decision:
+      'Tools are typed, read-only and path-checked, and context is validated before generation, so a missing-context answer says so instead of guessing.',
+    tech: ['Python', 'FastAPI', 'LangGraph', 'Google ADK', 'Qdrant + BM25', 'MLflow'],
+    bullets: [
+      'Hybrid BM25 + dense retrieval fused with weighted RRF and reranked; answers cite file and line range.',
+      'Five typed repository tools; the file reader blocks path traversal and caps reads at 200 KB.',
+      'Typed tool layer, bounded retries, and MLflow tracking of every query.',
+    ],
+    links: [{ label: 'Source', url: 'https://github.com/au01909/repo-copilot-agentic' }],
+    architecture: {
+      title: 'Question to cited answer',
+      caption: 'The ADK agent plans tool calls when a model key is configured; otherwise the LangGraph workflow answers directly.',
+      steps: ['FastAPI /api/chat', 'ADK agent (typed tools)', 'LangGraph: intent → retrieve → validate', 'BM25 + dense → RRF → rerank', 'Generate', 'Answer + file:line citations'],
+      branch: { label: 'No ADK key or ADK failure', steps: ['Direct LangGraph workflow', 'Extractive answer if no LLM is set'] },
+    },
+    detail: {
+      overview:
+        'Repo Copilot indexes a GitHub repository and answers questions about what it does, how it is built and how to run it, citing file and line range for each claim. The interesting engineering is in what it refuses to do: it will not guess, will not follow instructions found in repository files, and will not read outside the repository.',
+      sections: [
+        {
+          heading: 'Why hybrid retrieval',
+          body: 'Exact identifiers (function and file names) are found well by BM25; paraphrased questions are found better by dense vectors. Weighted reciprocal-rank fusion combines both, results are de-duplicated and reranked, and the planner boosts the files an intent needs (README for "what does this do", Dockerfile for deployment) without hard-filtering.',
+        },
+        {
+          heading: 'Citations as a verification tool',
+          body: 'Each answer carries file:start-end references so a developer can open the cited lines and check the claim. This makes wrong answers detectable.',
+        },
+        {
+          heading: 'Context validation and bounded retries',
+          body: 'The workflow retrieves, checks that something came back, and if not widens the fetch and retries up to a hard limit before answering with a "could not find that" response.',
+        },
+        {
+          heading: 'Typed, constrained tools',
+          body: 'Search, read file, tree, find symbol and dependencies are plain typed functions whose signatures become the tool schema. Each validates its own input and returns a structured error. Reads are limited to the session’s repositories and 200 KB, and none of them executes repository content.',
+        },
+        {
+          heading: 'Missing context and model failures',
+          body: 'With no model key the system answers in an extractive mode that is labeled as such, rather than silently degrading. If the ADK agent cannot be built or fails, the API falls back to the LangGraph workflow and reports which path answered.',
+        },
+        {
+          heading: 'Agentic security review',
+          body: 'Read-only, typed tools; the file reader resolves the real path and rejects anything outside the repository, with a 200 KB read cap. Repository text is treated as data, never as instructions. Retries, file sizes, chunk counts and timeouts are all bounded, secrets come from environment variables, and code execution is off by default behind an allowlist.',
+        },
       ],
     },
   },
   {
     slug: 'cardiovision',
-    title: 'CardioVision — Cardiovascular Disease Risk Prediction & Evaluation System',
-    link: 'https://au01909.github.io/CardioVision-Predictive-Analytics-for-Cardiovascular-Health/',
-    tagline: 'An XGBoost clinical risk model with a full evaluation harness and a live Streamlit dashboard.',
+    title: 'CardioVision',
+    tagline: 'An educational heart-disease risk model built for reproducibility: a leakage-free pipeline, honest metrics and tracked experiments.',
     period: '2026',
-    tech: ['Python', 'XGBoost', 'MLflow', 'Streamlit', 'Scikit-learn'],
+    tier: 'flagship',
+    problem:
+      'Small medical datasets make it easy to report an impressive accuracy that comes from leakage. The goal was a model whose numbers can be reproduced and trusted for what they are.',
+    contribution: 'Built the preprocessing, training, threshold selection, evaluation, MLflow tracking, tests and the Streamlit app.',
+    decision:
+      'Every transformer is fit on the training split only, so validation and test data never leak into preprocessing and the reported metrics can be reproduced.',
+    tech: ['Python', 'XGBoost', 'scikit-learn', 'MLflow', 'Streamlit'],
     bullets: [
-      'Achieved 98% accuracy predicting heart disease risk after preprocessing the UCI Heart Disease dataset — missing-value imputation, feature selection, and scaling.',
-      'Built an evaluation harness (AUC-ROC curves, confusion matrices, classification reports) to validate discrimination between at-risk and healthy patients and set acceptance thresholds.',
-      'Logged hyperparameters, metrics, and model artifacts with MLflow for reproducible, cross-run experimentation.',
-      'Delivered real-time risk assessment through an interactive Streamlit dashboard that outputs probability scores for new patient data.',
+      'Held-out test set: 83.6% accuracy, 86.5% F1, ROC AUC 0.918 and 97.0% recall on the 303-record UCI Cleveland dataset.',
+      'Randomized search over 60 configurations with 5-fold CV; decision threshold chosen by Youden index.',
+      'Educational project, not a medical device.',
     ],
-    featured: true,
+    links: [
+      { label: 'Live app', url: 'https://au01909.github.io/CardioVision-Predictive-Analytics-for-Cardiovascular-Health/' },
+      { label: 'Source', url: 'https://github.com/au01909/CardioVision-Predictive-Analytics-for-Cardiovascular-Health' },
+    ],
+    caveat: 'Educational project built on a public dataset. Not a medical device and not for diagnosis.',
+    architecture: {
+      title: 'Training pipeline',
+      caption: 'Fit-on-train-only preprocessing is what keeps the test metrics honest.',
+      steps: ['UCI Cleveland CSV', 'Impute → scale → SelectKBest (train only)', 'XGBoost + randomized search, 5-fold CV', 'Youden threshold on validation', 'Held-out test metrics', 'MLflow + Streamlit'],
+    },
     detail: {
       overview:
-        'CardioVision predicts cardiovascular disease risk from patient data using a trained XGBoost classifier, with an evaluation harness built to justify where the model can and can\u2019t be trusted, and a Streamlit front end for real-time scoring.',
+        'CardioVision predicts cardiovascular disease risk from 13 clinical features using XGBoost, with an evaluation harness and a Streamlit app. The point of the project is the discipline around the model, not the headline number.',
       sections: [
         {
-          heading: 'Data & modeling',
-          body: 'The UCI Heart Disease dataset was preprocessed with missing-value imputation, feature selection, and scaling, then split into train/validation/test sets to train an XGBoost classifier.',
+          heading: 'Reproducibility',
+          body: 'Imputation, scaling and feature selection are fit on the training split only, so validation and test data never influence preprocessing statistics. Runs are logged to MLflow with parameters, metrics and artifacts, and `python train.py` regenerates the reported metrics file.',
         },
         {
-          heading: 'Evaluation',
-          body: 'Rather than reporting a single accuracy number, the project includes a full evaluation harness — AUC-ROC curves, confusion matrices, and classification reports — used to define acceptance thresholds for separating at-risk from healthy patients, and to track experiments reproducibly through MLflow.',
-        },
-        {
-          heading: 'Delivery',
-          body: 'An interactive Streamlit dashboard exposes the model for real-time inference, returning probability scores for new patient inputs rather than a bare classification.',
+          heading: 'Model pipeline reasoning',
+          body: 'Randomized search over 60 XGBoost configurations is scored by ROC AUC under 5-fold cross-validation, SMOTE is applied only if classes are imbalanced, and the decision threshold is chosen on the validation split with the Youden index instead of defaulting to 0.5.',
         },
       ],
     },
   },
+
+  // ───────────────────────── key projects ─────────────────────────
   {
-    slug: 'qwen-qlora-finetuning',
-    title: 'Domain-Adaptive Fine-Tuning of Qwen2.5-3B-Instruct with QLoRA',
-    link: 'https://github.com/au01909/qwen2.5-3b-qlora-customer-support',
-    tagline: 'Fine-tuned a 3B instruction model on a custom dataset using memory-efficient QLoRA.',
-    period: 'Jul 2026',
-    tech: ['QLoRA', 'PEFT', 'Hugging Face Transformers', 'MLflow'],
+    slug: 'event-ops',
+    title: 'Full-Stack Event Ops',
+    tagline: 'A task-execution platform with real concurrency: a priority-aware Java thread pool, safe state transitions and a live React dashboard.',
+    period: '2026',
+    tier: 'key',
+    tech: ['Java 17', 'Spring Boot', 'PostgreSQL', 'MongoDB', 'React + TypeScript', 'Docker'],
     bullets: [
-      'Fine-tuned Qwen2.5-3B-Instruct using QLoRA and PEFT on a custom instruction dataset via Hugging Face Transformers.',
-      'Evaluated multiple training configurations to improve instruction-following performance, tracking every run with MLflow.',
+      'Tasks run concurrently on a bounded, priority-aware thread pool; pessimistic row locks plus optimistic version checks keep cancel-versus-finish races consistent.',
+      'A second microservice records task lifecycle events in MongoDB, called fire-and-forget so it never affects execution.',
+      'Concurrency tests with JUnit and Testcontainers; Flyway migrations; Docker Compose with Caddy HTTPS, deployed to AWS EC2.',
     ],
-    featured: true,
-    detail: {
-      overview:
-        'A domain-adaptive fine-tune of Qwen2.5-3B-Instruct using QLoRA — a quantization-aware, parameter-efficient fine-tuning approach that adapts the model to a custom instruction dataset without the cost of full fine-tuning.',
-      sections: [
-        {
-          heading: 'Approach',
-          body: 'QLoRA and PEFT were used through Hugging Face Transformers to adapt Qwen2.5-3B-Instruct to a custom instruction dataset, keeping compute and memory costs low relative to full fine-tuning.',
-        },
-        {
-          heading: 'Evaluation',
-          body: 'Multiple training configurations were evaluated against each other to improve instruction-following quality, with every run logged and compared through MLflow.',
-        },
-      ],
-    },
-  },
-  
-  {
-    slug: 'network-traffic-analysis',
-    title: 'Network Traffic Analysis & HTTP Load Testing Framework',
-    link: 'https://github.com/au01909/network-performance-analyzer',
-    tagline: 'A Python framework for inspecting live traffic and stress-testing services under concurrent load.',
-    period: 'Jun 2026',
-    tech: ['Python', 'Scapy', 'Sockets', 'Multithreading'],
-    bullets: [
-      'Built a network analysis and stress-testing framework using Scapy, socket programming, and multithreading to inspect TCP/IP, HTTP, and DNS traffic and simulate concurrent workloads.',
-      'Implemented packet capture and inspection, latency profiling, throughput analysis, retransmission detection, and automated bottleneck-identification reporting.',
-      'Designed a lightweight monitoring dashboard to visualize latency, throughput, retransmissions, and packet statistics for faster anomaly identification.',
+    links: [
+      { label: 'Live app', url: 'https://3-111-38-220.sslip.io' },
+      { label: 'Source', url: 'https://github.com/au01909/full_stack_event_ops' },
     ],
-    featured: true,
-    detail: {
-      overview:
-        'A Python framework for looking directly at what is happening on the wire — inspecting TCP/IP, HTTP, and DNS traffic — while also simulating concurrent load to find where a service starts to strain.',
-      sections: [
-        {
-          heading: 'Traffic inspection',
-          body: 'Built on Scapy and raw socket programming, the framework captures and inspects packets to analyze TCP/IP, HTTP, and DNS behavior directly rather than relying on higher-level abstractions.',
-        },
-        {
-          heading: 'Load simulation',
-          body: 'Multithreading is used to simulate concurrent workloads against a target service, with latency profiling, throughput analysis, and retransmission detection layered on top to automatically flag bottlenecks.',
-        },
-        {
-          heading: 'Visualization',
-          body: 'A lightweight monitoring dashboard surfaces latency, throughput, retransmissions, and packet statistics so anomalies are visible immediately instead of buried in logs.',
-        },
-      ],
-    },
-  },
-  {
-    slug: 'playwright-automation-framework',
-    title: 'Playwright-Based AI Test Automation Framework',
-    link: 'https://github.com/au01909/playwright-automation-framework',
-    tagline: 'A TypeScript/Playwright framework that writes and heals its own browser tests.',
-    period: 'Jun 2026',
-    tech: ['TypeScript', 'Playwright', 'LLMs'],
-    bullets: [
-      'Reduced UI test development time by 60% with a framework that generates browser test scenarios directly from natural-language prompts.',
-      'Self-heals broken locators using LLMs, improving automation resilience across complex, changing UI workflows.',
-    ],
-    featured: true,
-    detail: {
-      overview:
-        'A TypeScript and Playwright framework aimed at the most fragile part of UI automation: locators that break the moment a front end changes. It generates test scenarios from plain-language prompts and repairs broken locators automatically using an LLM.',
-      sections: [
-        {
-          heading: 'Generation from prompts',
-          body: 'Instead of hand-writing Playwright scripts for every scenario, the framework takes a natural-language description of a browser flow and generates the corresponding test scenario.',
-        },
-        {
-          heading: 'Self-healing locators',
-          body: 'When a UI change breaks an existing locator, the framework uses an LLM to identify the updated element and repair the locator automatically, rather than failing the suite outright.',
-        },
-        {
-          heading: 'Result',
-          body: 'Together, these cut UI test development time by roughly 60% and made the automation suite noticeably more resilient across complex, frequently changing workflows.',
-        },
-      ],
+    image: {
+      src: 'img/event-ops-dashboard.jpg',
+      alt: 'Event Ops dashboard showing task counts, live worker-pool utilization and a list of tasks moving through pending, running and completed states.',
     },
   },
   {
     slug: 'rever-pendant',
     title: 'Rever Pendant',
-    link: 'https://github.com/au01909/Rever-Pendant',
-    tagline:
-      'An AI-powered wearable memory assistant that captures conversations, generates insights, and sends intelligent email reminders.',
+    tagline: 'A wearable memory assistant prototype: captures conversations, transcribes and summarizes them, and sends email reminders for commitments.',
     period: '2025',
-    tech: [
-      'Python',
-      'FastAPI',
-      'Whisper',
-      'LLMs',
-      'RAG',
-      'ChromaDB',
-      'Speech-to-Text',
-      'Email Automation'
-    ],
+    tier: 'key',
+    tech: ['Python', 'FastAPI', 'Vosk speech-to-text', 'React'],
     bullets: [
-      'Built an end-to-end AI pipeline that converts spoken conversations into structured, searchable knowledge using speech recognition and LLMs.',
-      'Implemented semantic retrieval over conversation history, enabling natural-language recall of past conversations and important details.',
-      'Automated summarization, key-point extraction, and action-item generation from conversations to reduce manual note-taking.',
-      'Added an intelligent email reminder system that proactively sends notifications for commitments extracted from conversations, such as medication schedules and follow-up tasks.',
+      'Audio capture and offline transcription, a summary module, and an email-reminder flow with its own API reference and test script.',
+      'FastAPI backend with a React dashboard for browsing conversations and reminders.',
     ],
-    featured: true,
-    detail: {
-      overview:
-        'Rever Pendant is an AI-powered wearable memory assistant that continuously captures conversations, transcribes them into text, and transforms them into actionable knowledge. Beyond searchable conversation history, it identifies reminders and commitments from discussions, automatically sending email notifications at the appropriate time—such as reminding a user to take diabetic medication at 9:00 PM.',
-      sections: [
-        {
-          heading: 'The problem',
-          body: 'Important commitments and details shared during conversations are easily forgotten. Conventional voice recorders simply store audio, leaving users to manually revisit recordings and remember follow-up actions.',
-        },
-        {
-          heading: 'How it works',
-          body: 'The wearable captures conversations, transcribes speech into text, chunks and embeds transcripts into a vector database, and retrieves relevant context when queried. An LLM generates summaries, answers questions, extracts action items, and identifies time-based reminders from conversations.',
-        },
-        {
-          heading: 'Smart reminder system',
-          body: 'When the assistant detects future commitments—such as "Take diabetic medicine at 9 PM," "Call the doctor tomorrow," or "Attend a meeting on Friday"—it schedules and sends email reminders automatically, ensuring important tasks are not missed.',
-        },
-        {
-          heading: 'Why RAG',
-          body: 'Conversation history continuously grows over time. Retrieval-Augmented Generation grounds every response in the relevant transcript instead of relying solely on model memory, resulting in more accurate recall and summaries.',
-        },
-        {
-          heading: 'Impact',
-          body: 'The project transforms passive conversation recordings into an intelligent personal memory assistant that helps users search past discussions, generate insights, and proactively remember important commitments through automated email reminders.',
-        },
-      ],
-      stack: [
-        { layer: 'Language', tech: 'Python' },
-        { layer: 'Backend', tech: 'FastAPI' },
-        { layer: 'Speech Recognition', tech: 'Whisper / Speech-to-Text' },
-        { layer: 'Retrieval', tech: 'Retrieval-Augmented Generation (RAG)' },
-        { layer: 'Vector Database', tech: 'ChromaDB' },
-        { layer: 'LLM', tech: 'Gemini / OpenAI' },
-        { layer: 'Notifications', tech: 'Email Automation' },
-      ],
-      stat: [
-        { value: '100%', label: 'Automatic conversation transcription' },
-        { value: '24/7', label: 'Proactive reminder notifications' },
-        { value: '1', label: 'Unified AI memory assistant' },
-      ],
-    },
+    links: [{ label: 'Source', url: 'https://github.com/au01909/Rever-Pendant' }],
   },
   {
-    slug: 'AI-Document-analyst',
-    title: 'AI Document Analyst Chatbot',
-    link: 'https://github.com/au01909/chatbots',
-    tagline: 'A RAG document-intelligence platform for semantic search and Q&A across large document collections.',
-    period: 'Jan 2026 – Feb 2026',
-    tech: ['Python', 'FastAPI', 'LangChain', 'ChromaDB', 'Gemini API'],
+    slug: 'action-recognition-lstm',
+    title: 'Action Prediction with LSTM',
+    tagline: 'Real-time action recognition: pose keypoints from a webcam stream go through an LSTM that predicts what the person is doing.',
+    period: '2025',
+    tier: 'key',
+    tech: ['Python', 'OpenCV', 'MediaPipe', 'LSTM'],
     bullets: [
-      'Built a Retrieval-Augmented Generation platform enabling semantic search and context-aware question answering across large document collections via scalable REST APIs.',
-      'Reduced document retrieval time by serving results through a RAG pipeline instead of manual search.',
+      'End-to-end pipeline: record pose data per action, train the LSTM, then run live prediction on the webcam feed.',
+      'Pose landmarks instead of raw pixels keeps the model small enough for real-time use.',
     ],
-    featured: false,
+    links: [{ label: 'Source', url: 'https://github.com/au01909/real_time_violence_detection' }],
+  },
+
+  // ───────────────────────── client work ─────────────────────────
+  {
+    slug: 'yournearbest-plumbing',
+    title: 'YourNearBest Plumbing Services',
+    tagline: 'Freelance website for a plumbing business in Sarjapur, Bangalore: services, FAQ, booking and local-search metadata.',
+    period: 'Client project',
+    tier: 'client',
+    tech: ['HTML', 'CSS', 'JavaScript', 'GitHub Pages'],
+    bullets: [
+      'Multi-page site with a booking page that embeds the client’s form, plus SEO and social metadata for local search.',
+      'Also the target of my Playwright test framework (25 tests across 4 browsers).',
+    ],
+    links: [{ label: 'Live site', url: 'https://yournearbestplumbingservices.com' }],
+  },
+  {
+    slug: 'trs-office-of-foreign-affairs',
+    title: 'TRS Office of Foreign Affairs',
+    tagline: 'Freelance informational website for the Office of Foreign Affairs of Telangana Rakshana Sena: about, leadership, agendas and contact.',
+    period: 'Client project',
+    tier: 'client',
+    tech: ['HTML', 'CSS', 'JavaScript', 'GitHub Pages'],
+    bullets: ['Structured multi-section site presenting the office’s mandate, leadership and agendas for an international audience.'],
+    links: [{ label: 'Live site', url: 'https://trsoofa.com' }],
+  },
+
+  // ───────────────────────── supporting ─────────────────────────
+  {
+    slug: 'ai-qa-assistant',
+    title: 'AI-Assisted Test Authoring (Zeta internship)',
+    tagline: 'Internal tool that drafts test cases and automation from engineering documentation, with human review.',
+    period: '2026 · Zeta',
+    tier: 'supporting',
+    tech: ['Python', 'FastAPI', 'RAG', 'REST Assured', 'TestNG'],
+    bullets: [
+      'Retrieves relevant documentation, builds a structured context, generates draft test cases and REST Assured/TestNG scripts, then a person reviews them before they run.',
+      'Self-reported ~90% reduction in manual authoring effort on the covered workflow (internal estimate, not independently measured).',
+    ],
+    links: [],
+    caveat: 'Built during my Zeta internship. Internal details are not published.',
+  },
+  {
+    slug: 'playwright-automation-framework',
+    title: 'Self-Healing Playwright Framework',
+    tagline: 'TypeScript test framework that repairs broken locators with an LLM and remembers the fix.',
+    period: '2026',
+    tier: 'supporting',
+    tech: ['TypeScript', 'Playwright', 'OpenAI / Gemini', 'SQLite'],
+    bullets: [
+      '25 plain-English tests across 4 browsers (100 cases) against a real third-party site, plus SEO, accessibility and broken-link validators.',
+      'On a locator failure it asks the model for a replacement, retries only above a 0.75 confidence threshold, and caches the healed locator in SQLite.',
+    ],
+    links: [{ label: 'Source', url: 'https://github.com/au01909/playwright-automation-framework' }],
+  },
+  {
+    slug: 'qwen-qlora-finetuning',
+    title: 'Qwen2.5-3B QLoRA Customer-Support Fine-Tune',
+    tagline: 'A reproducible QLoRA pipeline that compares a tuned adapter with the base model on identical data.',
+    period: '2026',
+    tier: 'supporting',
+    tech: ['QLoRA / PEFT', 'Hugging Face', 'MLflow', 'pytest'],
+    bullets: [
+      'Training, evaluation, LoRA rank sweep and error-analysis code with MLflow tracking and tests.',
+      'Results tables are generated from the experiment outputs, so every number traces to a run.',
+    ],
+    links: [{ label: 'Source', url: 'https://github.com/au01909/qwen2.5-3b-qlora-customer-support' }],
+  },
+  {
+    slug: 'network-performance-analyzer',
+    title: 'Network Performance Analyzer',
+    tagline: 'Packet capture, HTTP load testing, bottleneck detection and a live dashboard behind one CLI.',
+    period: 'Jun 2026',
+    tier: 'supporting',
+    tech: ['Python', 'Scapy', 'Flask', 'Docker'],
+    bullets: [
+      'Parses TCP, UDP, DNS and HTTP traffic, detects retransmissions, and reports P50–P99 latency and error rates.',
+      'Unit and integration tests for parsers, metrics, the bottleneck detector, sockets and the dashboard flow; HTML, JSON and CSV reports.',
+    ],
+    links: [{ label: 'Source', url: 'https://github.com/au01909/network-performance-analyzer' }],
   },
   {
     slug: 'ai-chatbot-suite',
-    title: 'AI Chatbot Suite',
-    link: 'https://github.com/au01909/chatbots',
-    tagline: 'Six-plus AI applications spanning document intelligence, multimodal search, and conversational analytics.',
+    title: 'AI Chatbot Suite and Document Analyst',
+    tagline: 'Rule-based, keyword, Gemini, voice and RAG chatbots, including PDF question-answering.',
     period: 'Jan 2026',
-    tech: ['Python', 'Streamlit', 'LangChain', 'Gemini API', 'OpenCV', 'PaddleOCR', 'ChromaDB'],
+    tier: 'supporting',
+    tech: ['Python', 'Streamlit', 'LangChain', 'Gemini', 'OCR'],
     bullets: [
-      'Engineered 6+ AI-powered applications integrating NLP, computer vision, OCR, and generative AI into document intelligence and conversational-analytics workflows.',
-      'Reduced manual processing effort by over 80% across the covered workflows.',
+      'A progression from rule-based bots to retrieval-grounded document Q&A, plus a healthcare OCR-to-plan assistant.',
     ],
-    featured: false,
-  },
-  
-  {
-    slug: 'action-recognition-lstm',
-    title: 'Real-Time Human Action Recognition using LSTM',
-    link: 'https://github.com/au01909/real_time_violence_detection',
-    tagline: 'A webcam-based pipeline that classifies human actions in real time from pose keypoints.',
-    period: '2025',
-    tech: ['Python', 'OpenCV', 'MediaPipe', 'LSTM'],
-    bullets: [
-      'Achieved 96% accuracy with sub-100ms inference latency by feeding temporal pose-keypoint sequences into an LSTM network.',
-      'Improved generalization across 4 action classes by tuning sequence length, hidden-layer size, and dropout, validated via confusion-matrix analysis on held-out video.',
-      'Built a live webcam pipeline that buffers frame sequences and streams predictions in real time.',
-    ],
-    featured: true,
-    detail: {
-      overview:
-        'This project classifies human actions from live video by tracking pose keypoints and feeding their motion over time into an LSTM network — built for real-time use rather than offline batch classification.',
-      sections: [
-        {
-          heading: 'Pipeline',
-          body: 'Pose keypoints are extracted per frame with OpenCV and MediaPipe, then assembled into temporal sequences that an LSTM network was trained on to classify the action being performed.',
-        },
-        {
-          heading: 'Tuning for generalization',
-          body: 'Sequence length, hidden-layer size, and dropout were tuned to improve generalization across four action classes, with performance validated using accuracy and confusion-matrix analysis on held-out video sequences.',
-        },
-        {
-          heading: 'Real-time constraint',
-          body: 'The model runs inference in under 100ms per prediction, fast enough to buffer and stream live webcam frames through the pipeline and get continuous predictions rather than a delayed batch result.',
-        },
-      ],
-    },
+    links: [{ label: 'Source', url: 'https://github.com/au01909/chatbots' }],
   },
   {
     slug: 'mcp-ai-assistant',
-    title: 'MCP-Powered AI Assistant',
-    link: ' https://github.com/au01909/AI-assisstant-MCP',
-    tagline: 'A generative AI assistant that orchestrates multiple external tool servers through a single protocol.',
+    title: 'MCP Streamlit Assistant',
+    tagline: 'A chat interface that connects to configurable MCP tool servers.',
     period: 'Feb 2026',
-    tech: ['Python', 'LangChain', 'OpenAI', 'MCP'],
-    bullets: [
-      'Architected a generative AI assistant using LangChain, OpenAI, and the Model Context Protocol (MCP) to orchestrate 3+ external tool servers.',
-      'Reduced manual context switching by ~70% through automated validation, exception handling, and fault-tolerant execution.',
-    ],
-    featured: false,
-  },
-  
-  {
-    slug: 'pytest-api-automation',
-    title: 'Pytest-Based API Test Automation for Website QA',
-    tagline: 'A Pytest suite validating uptime, status codes, and broken links on a live production website.',
-    period: 'Jul 2026',
-    tech: ['Python', 'Pytest', 'Requests'],
-    bullets: [
-      'Built a Python test automation suite using Pytest and the Requests library to validate uptime, HTTP status codes, and broken links across a live production website.',
-      'Automated contact/quote-request form submission validation and content-based assertions to catch regressions before production.',
-    ],
-    featured: false,
+    tier: 'supporting',
+    tech: ['Python', 'LangChain', 'MCP', 'Streamlit'],
+    bullets: ['Loads MCP server configs from JSON and lets you query their tools in natural language.'],
+    links: [{ label: 'Source', url: 'https://github.com/au01909/AI-assisstant-MCP' }],
   },
   {
     slug: 'sudoku-solver',
-    title: 'Sudoku Solver Web Application',
-    link: 'https://sudoku-solver-lvng.onrender.com',
-    tagline: 'A responsive Sudoku solver built on an optimized backtracking algorithm.',
+    title: 'Sudoku Solver',
+    tagline: 'A responsive web solver using optimized backtracking.',
     period: 'Dec 2024',
+    tier: 'supporting',
     tech: ['HTML', 'CSS', 'JavaScript'],
-    bullets: [
-      'Developed a responsive Sudoku web application implementing an optimized backtracking algorithm with efficient state management for near-instant puzzle solving.',
-    ],
-    featured: false,
+    bullets: ['Small web app deployed on Render.'],
+    links: [{ label: 'Live app', url: 'https://sudoku-solver-lvng.onrender.com' }],
   },
 ]
 
+export type ProductCase = {
+  title: string
+  kind: string
+  question: string
+  evidence: string
+  recommendation: string
+  metric: string
+  experiment: string
+  url: string
+  cta: string
+}
+
+// The Swiggy and Maps write-ups follow one template: user problem, evidence, proposal, metric, first test, limits.
+export const productCases: ProductCase[] = [
+  {
+    title: 'Help Me Decide: Swiggy as a decision assistant',
+    kind: 'Product strategy · personalization',
+    question: 'Discovery is solved; the real problem is confidence in the one restaurant you pick.',
+    evidence: 'Framed as decision fatigue, not search. Published on Medium; assumptions are marked in the write-up.',
+    recommendation: 'A conversational layer that turns context, budget, occasion and history into a recommendation that explains itself.',
+    metric: 'North Star: successful food decisions per active user. Guardrails: cancellation rate, recommendation diversity, restaurant visibility.',
+    experiment: 'Does a one-line "why this" explanation change recommendation-to-order conversion?',
+    url: 'https://medium.com/@au01909/help-me-decide-turning-swiggy-from-a-marketplace-into-a-decision-assistant-88a055e64db1',
+    cta: 'Read on Medium',
+  },
+  {
+    title: 'Google Maps: when the fastest route is not the best default',
+    kind: 'Product thinking · defaults',
+    question: 'On one trip, a 42 km route with a ₹158 toll was pre-selected to save about 5 minutes over a 23 km toll-free route.',
+    evidence: 'One observed trip, with all three routes visible, so the issue was the default and not missing information. Google’s ranking logic is not public, and the write-up separates verified from inferred.',
+    recommendation: 'A smarter default only in clear near-tie cases, with a plain tradeoff note. The fastest route stays one tap away and Avoid-tolls settings are never overridden.',
+    metric: 'Default override rate. Guardrails: decision time, ETA satisfaction, route switching, over-trust.',
+    experiment: 'Measure how often the fastest route is only marginally faster than a cheaper, shorter one. If rare, stop.',
+    url: 'https://app.notion.com/p/3ece722e7e2781d3bb7af2fe35c50a89',
+    cta: 'Read on Notion',
+  },
+  {
+    title: 'Paper Boat Zero: from trial to habit',
+    kind: 'Consumer strategy · market analysis',
+    question: 'Zero sugar is becoming table stakes, so can a nostalgia brand turn first trial into repeat buying?',
+    evidence: 'Built from public sources. Standalone revenue and repeat rate are not public, so company facts and interpretation are kept apart.',
+    recommendation: 'A wide flavor range helps discovery but makes the first choice harder, so help people find their one.',
+    metric: 'Repeat purchase by first-bought flavor.',
+    experiment: 'Follow first-time buyers of different Zero products for 60 to 90 days.',
+    url: 'https://app.notion.com/p/3dee722e7e27815cb4f2d969cf01ac55',
+    cta: 'Read on Notion',
+  },
+]
+
+export const productSkills = [
+  { group: 'Discovery and strategy', skills: ['Product sense', 'Problem framing', 'User research', 'Competitive analysis', 'Product strategy'] },
+  { group: 'Design', skills: ['Wireframing', 'Figma', 'User journeys', 'Scope and prioritization'] },
+  { group: 'Delivery', skills: ['Stakeholder management', 'Working with engineering', 'Agile workflows', 'Roadmapping', 'Risk management'] },
+  { group: 'Measurement', skills: ['Metrics (North Star, input metrics, guardrails)', 'Experiment design and A/B testing', 'Data analysis', 'Success criteria'] },
+  { group: 'AI products', skills: ['Where AI belongs and where it does not', 'Evaluation and guardrails', 'Trust and safety trade-offs'] },
+]
+
+export const practices = {
+  secure: [
+    'Validate input at the boundary and restrict free-text fields that reach a prompt (TradeMirror).',
+    'Resolve real paths and reject escapes before reading files (Repo Copilot).',
+    'Keep secrets in environment variables, gitignored, never sent to the browser.',
+    'Rate-limit endpoints that cost money or CPU; bound retries, sizes and timeouts.',
+    'Regression-test the malicious case, not only the happy path.',
+  ],
+  ai: [
+    'Let deterministic code compute anything where correctness matters; let the model explain.',
+    'Validate structured output against a schema and drop identifiers the model invented.',
+    'Treat retrieved and user-supplied text as data, never as instructions.',
+    'Give agents read-only, typed tools first; require human approval before consequential writes.',
+    'Design the fallback before the feature: failure should reduce richness, not break the product.',
+  ],
+}
+
 export const skillGroups = [
-  {
-    name: 'Programming',
-    skills: ['Python', 'Java', 'TypeScript', 'SQL'],
-  },
-  {
-    name: 'AI & Machine Learning',
-    skills: [
-      'PyTorch',
-      'TensorFlow',
-      'Scikit-learn',
-      'XGBoost',
-      'Computer Vision',
-      'LSTM',
-      'Model Evaluation (AUC-ROC, Cross-Validation)',
-      'LLMs',
-      'RAG',
-      'LangChain',
-      'LangGraph',
-      'Model Context Protocol (MCP)',
-      'Hugging Face Transformers',
-      'QLoRA / PEFT',
-      'ChromaDB',
-      'Prompt Engineering',
-    ],
-  },
-  {
-    name: 'Backend & Distributed Systems',
-    skills: ['FastAPI', 'REST APIs', 'Microservices', 'Apache Kafka', 'Docker', 'Jenkins', 'GitHub Actions'],
-  },
-  {
-    name: 'Testing & QA Engineering',
-    skills: [
-      'Pytest',
-      'REST Assured',
-      'TestNG',
-      'Playwright',
-      'Selenium',
-      'Test Framework Design',
-      'Regression & Integration Testing',
-    ],
-  },
-  {
-    name: 'Databases',
-    skills: ['PostgreSQL', 'MySQL'],
-  },
-  {
-    name: 'Networking',
-    skills: ['TCP/IP', 'DNS', 'HTTP/HTTPS', 'DHCP', 'Routing & Switching', 'Socket Programming', 'Scapy'],
-  },
-  {
-    name: 'Developer Tools',
-    skills: ['Git', 'GitHub', 'Postman', 'Kibana', 'Linux/Unix', 'Shell Scripting', 'Streamlit', 'Jira', 'Maven'],
-  },
+  { name: 'Languages', skills: ['Python', 'TypeScript', 'Java', 'SQL'] },
+  { name: 'AI engineering', skills: ['LLM apps', 'RAG', 'LangChain', 'LangGraph', 'Google ADK', 'MCP', 'Evaluation harnesses', 'QLoRA / PEFT', 'PyTorch', 'scikit-learn', 'XGBoost'] },
+  { name: 'Backend & systems', skills: ['FastAPI', 'Express', 'REST APIs', 'Microservices', 'Kafka', 'PostgreSQL', 'Docker'] },
+  { name: 'Quality & delivery', skills: ['REST Assured', 'TestNG', 'Playwright', 'Pytest', 'Jenkins', 'GitHub Actions', 'Kibana'] },
+  { name: 'Frontend', skills: ['React', 'Vite', 'Tailwind CSS', 'Streamlit'] },
 ]
 
 export const leadership = [
-  'Led cross-functional teams in 5+ AI hackathons, delivering rapid prototypes under tight deadlines and securing multiple top-10 finishes.',
-  'Increased community engagement by 40% as Social Media Lead through gaming tournaments and promotional campaigns.',
-  'Captained the Table Tennis team to two state championship titles while competing in regional football and swimming.',
-  'Earned the highest NCC and Scouts certification, demonstrating leadership, discipline, decision-making, and teamwork in high-pressure environments.',
+  {
+    title: 'AI hackathons',
+    fact: 'Led cross-functional teams in 5+ AI hackathons, shipping rapid prototypes under tight deadlines, with multiple top-10 finishes.',
+    shows: 'Delivers under pressure and brings mixed skill sets together.',
+  },
+  {
+    title: 'Social Media Lead',
+    fact: 'Increased community engagement by 40% through gaming tournaments and promotional campaigns.',
+    shows: 'Takes initiative and measures what worked.',
+  },
+  {
+    title: 'NCC and Scouts',
+    fact: 'Earned the highest certification in both NCC and Scouts.',
+    shows: 'Disciplined, reliable and steady when decisions matter.',
+  },
 ]
 
-export const hobbies = ['Table Tennis', 'Swimming', 'Football', 'Badminton', '8-Ball Pool', 'Hackathons', 'NCC', 'Scouts']
+export const sports = {
+  headline: 'Table tennis captain, two-time state champion',
+  achievements: [
+    'Captained the Table Tennis team to two state championship titles.',
+    'Competed at regional level in football and swimming.',
+  ],
+  why: 'Captaincy is where I learned to keep a team calm, play to each person’s strengths, and own the result win or lose.',
+}
+
+export const freeTime = [
+  { name: '8-ball pool and snooker', note: 'Patience, angles and the next three shots' },
+  { name: 'Jamming', note: 'Listening first, then improvising with others' },
+  { name: 'Chill hangouts', note: 'Good conversation with friends, no agenda' },
+  { name: 'Badminton, football and swimming', note: 'Staying active, usually with a team' },
+]

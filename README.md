@@ -8,11 +8,12 @@ A recruiter-focused, single-page portfolio built with **React 19 + Vite + TypeSc
 
 ## Features
 
-- **Single-page layout** — Hero, About, Experience, Projects, Skills, Leadership, and Contact sections assembled on one scroll (`src/pages/Home.tsx`).
-- **Project case-study pages** — each project links out to its own detail route at `/#/projects/:slug` (`src/pages/ProjectDetail.tsx`).
-- **Scroll-triggered animations** — sections fade up into view via a shared `Reveal` wrapper component, using Tailwind's `fadeUp` keyframe animation.
-- **Accessibility-conscious** — `prefers-reduced-motion` is respected globally, and all interactive elements have visible keyboard focus states.
-- **Content/UI separation** — all copy (experience, education, skills, links) lives in one typed data file, so the site can be updated without touching any component code.
+- **Evidence-first single page**: hero, projects (case studies, key projects, client work), engineering principles, product case studies, technical deep dives, experience, supporting projects, education and skills, leadership and sports, about and contact (`src/pages/Home.tsx`).
+- **Case-study routes**: TradeMirror, Repo Copilot and CardioVision at `/#/projects/:slug`, with screenshot or architecture diagram, highlights and detailed sections (`src/pages/ProjectDetail.tsx`).
+- **Single content file**: every claim lives in `src/data/portfolio.ts` and is sourced in `docs/`. Unverified metrics are removed, not softened.
+- **Responsive and accessible**: checked from 320 to 2560 px, skip link, semantic markup, `prefers-reduced-motion` respected.
+
+See `docs/portfolio-artifacts.md`, `docs/portfolio-audit.md` and `docs/ai-engineering-standards.md`.
 
 ## Tech Stack
 

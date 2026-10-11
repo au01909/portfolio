@@ -8,6 +8,13 @@
   }
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (min-width: 1800px) {
+    html { font-size: 112.5%; }
+  }
+  @media (min-width: 2400px) {
+    html { font-size: 137.5%; }
   }
   body {
     @apply bg-bg text-ink font-body antialiased;
