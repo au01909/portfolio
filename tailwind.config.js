@@ -19,7 +19,7 @@ export default {
         serif: ['"Instrument Serif"', 'serif'],
       },
       maxWidth: {
-        content: '1120px',
+        content: '70rem',
       },
       keyframes: {
         fadeUp: {

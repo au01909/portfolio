@@ -1,84 +1,32 @@
 import Reveal from './Reveal'
-import { education, profile } from '../data/portfolio'
 
 export default function About() {
   return (
-    <section id="about" className="py-24 md:py-32 border-t border-border">
+    <section id="about" className="py-20 md:py-28 border-t border-border bg-surface/40 scroll-mt-16">
       <div className="container-content">
         <Reveal>
-          <p className="eyebrow text-primary mb-4">01 · About</p>
+          <p className="eyebrow text-primary mb-4">About</p>
+          <h2 className="text-3xl md:text-4xl mb-8 max-w-2xl">Software first, with AI and product judgment.</h2>
         </Reveal>
-        <div className="grid md:grid-cols-[1.5fr_1fr] gap-14">
-          <div>
-            <Reveal>
-              <p className="quote text-2xl md:text-3xl text-ink leading-snug mb-6">
-                “I like understanding how systems actually work — then finding the failure modes before a user
-                does.”
-              </p>
-            </Reveal>
-            <Reveal delay={80}>
-              <div className="space-y-5 text-lg text-muted leading-relaxed max-w-2xl">
-                <p>
-                  I'm an applied machine learning engineer and software test engineer, working across two things
-                  that don't usually sit in the same job description: building AI systems, and making sure
-                  software actually behaves the way it's supposed to under real conditions.
-                </p>
-                <p>
-                  On the ML side, that means predictive models, evaluation harnesses, and agentic systems built on
-                  RAG and LLM fine-tuning. On the QA side, it means Java and REST Assured automation suites that
-                  hold up high-volume, distributed, event-driven payment systems. Lately I've been combining the
-                  two — using AI-assisted, agentic workflows to make testing itself faster without cutting corners
-                  on rigor.
-                </p>
-                <p>
-                  I have a strong foundation in algorithms, distributed systems, and networking, and I'm most
-                  comfortable when I'm translating an ambiguous, real-world problem into something measurable and
-                  testable. I use AI tools to move quickly, but I keep engineering discipline in the loop —
-                  evaluation, root-cause analysis, and reproducibility aren't optional steps to me.
-                </p>
-              </div>
-            </Reveal>
-
-            <Reveal delay={140}>
-              <div className="mt-10 flex flex-wrap gap-2">
-                {profile.interests.map((i) => (
-                  <span
-                    key={i}
-                    className="font-mono text-[12px] border border-border px-3 py-1.5 text-muted bg-surface/60"
-                  >
-                    {i}
-                  </span>
-                ))}
-              </div>
-            </Reveal>
+        <Reveal delay={60}>
+          <div className="space-y-5 text-lg text-muted leading-relaxed max-w-3xl">
+            <p>
+              I studied Artificial Intelligence and Machine Learning, but most of what I enjoy is ordinary software
+              engineering: services, data pipelines, and tests that catch the failure before a user does. At Zeta I tested
+              payment and rewards microservices, wrote Java API automation, and traced production issues through logs and
+              PostgreSQL.
+            </p>
+            <p>
+              On the AI side I build agentic and LLM applications with a bias toward things I can check: retrieval that
+              cites its sources, tools with narrow permissions, structured output that is validated, and a fallback for when
+              the model is wrong or unavailable. Evaluation and security are part of the build, not a final step.
+            </p>
+            <p>
+              Before writing code I try to ask whether the problem is worth solving and how I would know the solution helped.
+              That habit comes from writing product case studies, and it is why my projects state what they do not prove.
+            </p>
           </div>
-
-          <Reveal delay={100}>
-            <div className="border border-border bg-surface/50 p-7">
-              <p className="eyebrow text-muted mb-5">Quick facts</p>
-              <dl className="space-y-5 text-sm">
-                <div>
-                  <dt className="font-mono text-[11px] text-muted uppercase tracking-wide">Based in</dt>
-                  <dd className="mt-1 text-ink">{profile.location}</dd>
-                </div>
-                <div>
-                  <dt className="font-mono text-[11px] text-muted uppercase tracking-wide">Currently</dt>
-                  <dd className="mt-1 text-ink">Graduate Intern, Software Test Engineering — Zeta</dd>
-                </div>
-                {education.map((e) => (
-                  <div key={e.school}>
-                    <dt className="font-mono text-[11px] text-muted uppercase tracking-wide">Education</dt>
-                    <dd className="mt-1 text-ink">{e.school}</dd>
-                    <dd className="text-muted">{e.degree}</dd>
-                    <dd className="text-muted font-mono text-xs mt-0.5">
-                      {e.period} · {e.detail}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          </Reveal>
-        </div>
+        </Reveal>
       </div>
     </section>
   )

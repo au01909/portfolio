@@ -23,13 +23,13 @@ export default function Experience() {
   }, [])
 
   return (
-    <section id="experience" className="py-24 md:py-32 border-t border-border bg-surface/40">
+    <section id="experience" className="py-20 md:py-28 border-t border-border scroll-mt-16">
       <div className="container-content">
         <Reveal>
-          <p className="eyebrow text-primary mb-4">02 · Experience</p>
+          <p className="eyebrow text-primary mb-4">Professional experience</p>
         </Reveal>
         <Reveal delay={60}>
-          <h2 className="text-3xl md:text-4xl mb-16 max-w-xl">Where I've worked, and what I shipped there.</h2>
+          <h2 className="text-3xl md:text-4xl mb-14 max-w-xl">Where I've worked, and what I shipped there.</h2>
         </Reveal>
 
         <div ref={sectionRef} className="relative">
@@ -51,7 +51,8 @@ export default function Experience() {
                       {role.period} · {role.mode}
                     </span>
                   </div>
-                  <p className="text-primary font-medium mb-5">{role.role}</p>
+                  <p className="text-primary font-medium mb-2">{role.role}</p>
+                  {role.note && <p className="text-sm text-muted mb-5">{role.note}</p>}
                   <ul className="space-y-3 max-w-3xl">
                     {role.bullets.map((b) => (
                       <li key={b} className="flex gap-3 text-muted leading-relaxed">

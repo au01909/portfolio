@@ -16,16 +16,16 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-24 md:py-32 border-t border-border bg-ink text-bg">
+    <section id="contact" className="py-20 md:py-28 border-t border-border bg-ink text-bg scroll-mt-16">
       <div className="container-content">
         <Reveal>
-          <p className="eyebrow text-accent mb-4">06 · Contact</p>
+          <p className="eyebrow text-bg/70 mb-4">Contact</p>
         </Reveal>
         <div className="grid md:grid-cols-[1.4fr_1fr] gap-14 items-end">
           <div>
             <Reveal delay={60}>
               <h2 className="text-3xl md:text-5xl leading-tight max-w-xl">
-                Working on something worth building? I'd like to hear about it.
+                Building something where correctness and trust matter? I'd like to hear about it.
               </h2>
             </Reveal>
             <Reveal delay={120}>
@@ -48,17 +48,21 @@ export default function Contact() {
 
           <Reveal delay={100}>
             <div className="flex flex-col gap-4 font-mono text-sm md:items-end">
-              <a href={profile.links.linkedin} className="hover:text-accent transition-colors" target="_blank" rel="noreferrer">
-                LinkedIn ↗
+              {[
+                ['LinkedIn', profile.links.linkedin],
+                ['GitHub', profile.links.github],
+                ['LeetCode', profile.links.leetcode],
+                ['Medium', profile.links.medium],
+                ['Notion', profile.links.notion],
+              ].map(([label, url]) => (
+                <a key={url} href={url} className="hover:text-accent transition-colors" target="_blank" rel="noopener noreferrer">
+                  {label} ↗<span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              ))}
+              <a href="tel:+917975612469" className="hover:text-accent transition-colors">
+                {profile.phone}
               </a>
-              <a href={profile.links.github} className="hover:text-accent transition-colors" target="_blank" rel="noreferrer">
-                GitHub ↗
-              </a>
-              <a href={profile.links.leetcode} className="hover:text-accent transition-colors" target="_blank" rel="noreferrer">
-                LeetCode ↗
-              </a>
-              <span className="text-bg/50">{profile.phone}</span>
-              <span className="text-bg/50">{profile.location}</span>
+              <span className="text-bg/70">{profile.location}</span>
             </div>
           </Reveal>
         </div>

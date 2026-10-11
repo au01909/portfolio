@@ -3,10 +3,11 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { profile } from '../data/portfolio'
 
 const links = [
-  { href: '#about', label: 'About' },
+  { href: '#projects', label: 'Work' },
+  { href: '#trust', label: 'Trustworthy AI' },
+  { href: '#product', label: 'Product' },
   { href: '#experience', label: 'Experience' },
-  { href: '#projects', label: 'Projects' },
-  { href: '#skills', label: 'Skills' },
+  { href: '#about', label: 'About' },
   { href: '#contact', label: 'Contact' },
 ]
 
@@ -28,7 +29,8 @@ export default function Nav() {
     if (onHome) {
       document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
     } else {
-      navigate('/' + href)
+      navigate('/')
+      setTimeout(() => document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' }), 80)
     }
   }
 
@@ -38,18 +40,33 @@ export default function Nav() {
         scrolled ? 'bg-bg/90 backdrop-blur border-b border-border' : 'bg-transparent'
       }`}
     >
-      <nav className="container-content flex items-center justify-between h-16">
-        <Link to="/" className="font-mono text-sm tracking-tight text-ink" onClick={() => setOpen(false)}>
+      <a
+        href="#main"
+        onClick={(e) => {
+          e.preventDefault()
+          document.querySelector('#main')?.scrollIntoView()
+        }}
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-2 focus:bg-bg focus:px-3 focus:py-2"
+      >
+        Skip to content
+      </a>
+      <nav aria-label="Primary" className="container-content flex items-center justify-between h-16">
+        <Link to="/" className="font-mono text-sm tracking-tight text-ink" onClick={() => {
+            setOpen(false)
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+          }}
+          aria-label="Home, back to top"
+        >
           <span className="text-primary">~/</span>
           {profile.name.split(' ')[0].toLowerCase()}
         </Link>
 
-        <ul className="hidden md:flex items-center gap-8">
+        <ul className="hidden lg:flex items-center gap-8">
           {links.map((l) => (
             <li key={l.href}>
               <button
                 onClick={() => goTo(l.href)}
-                className="eyebrow text-ink/80 hover:text-primary transition-colors relative group"
+                className="eyebrow whitespace-nowrap text-ink/80 hover:text-primary transition-colors relative group"
               >
                 {l.label}
                 <span className="absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full" />
@@ -60,26 +77,27 @@ export default function Nav() {
 
         <a
           href={`mailto:${profile.email}`}
-          className="hidden md:inline-flex items-center gap-2 border border-ink/20 px-4 py-2 text-sm font-medium hover:border-primary hover:text-primary transition-colors"
+          className="hidden lg:inline-flex items-center gap-2 whitespace-nowrap border border-ink/20 px-4 py-2 text-sm font-medium hover:border-primary hover:text-primary transition-colors"
         >
           Get in touch
         </a>
 
         <button
-          className="md:hidden font-mono text-xs border border-border px-3 py-1.5"
+          className="lg:hidden font-mono text-xs border border-border px-4 py-2.5"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-label="Toggle menu"
+          aria-controls="mobile-menu"
         >
           {open ? 'close' : 'menu'}
         </button>
       </nav>
 
       {open && (
-        <ul className="md:hidden bg-bg border-b border-border px-6 pb-6 pt-2 flex flex-col gap-4">
+        <ul id="mobile-menu" className="lg:hidden bg-bg border-b border-border px-6 pb-6 pt-2 flex flex-col gap-4">
           {links.map((l) => (
             <li key={l.href}>
-              <button onClick={() => goTo(l.href)} className="eyebrow">
+              <button onClick={() => goTo(l.href)} className="eyebrow py-2">
                 {l.label}
               </button>
             </li>

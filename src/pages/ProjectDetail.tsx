@@ -1,26 +1,30 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import Reveal from '../components/Reveal'
+import { ArchitectureDiagram } from '../components/CaseStudy'
 import { projects } from '../data/portfolio'
+import { useTitle } from '../useTitle'
 
 export default function ProjectDetail() {
   const { slug } = useParams()
-  const project = projects.find((p) => p.slug === slug)
+  const navigate = useNavigate()
+  const project = projects.find((p) => p.slug === slug && p.detail)
+  useTitle(project ? `${project.title} — case study · Aryan Uppuganti` : 'Not found · Aryan Uppuganti')
 
   useEffect(() => {
     window.scrollTo({ top: 0 })
   }, [slug])
 
-  if (!project) {
+  if (!project || !project.detail) {
     return (
       <>
         <Nav />
-        <main className="pt-40 pb-32">
+        <main id="main" className="pt-40 pb-32">
           <div className="container-content text-center">
             <p className="eyebrow text-primary mb-4">404</p>
-            <h1 className="text-3xl mb-6">Project not found</h1>
+            <h1 className="text-3xl mb-6">Case study not found</h1>
             <Link to="/" className="text-primary underline underline-offset-4">
               Back home
             </Link>
@@ -31,144 +35,118 @@ export default function ProjectDetail() {
     )
   }
 
-  const idx = projects.findIndex((p) => p.slug === slug)
-  const prev = projects[(idx - 1 + projects.length) % projects.length]
-  const next = projects[(idx + 1) % projects.length]
+  const detail = project.detail
+  const flagships = projects.filter((p) => p.detail)
+  const idx = flagships.findIndex((p) => p.slug === slug)
+  const prev = flagships[(idx - 1 + flagships.length) % flagships.length]
+  const next = flagships[(idx + 1) % flagships.length]
+  const backToWork = () => {
+    navigate('/')
+    setTimeout(() => document.querySelector('#projects')?.scrollIntoView(), 80)
+  }
 
   return (
     <>
       <Nav />
-      <main className="pt-32 md:pt-40 pb-24">
+      <main id="main" className="pt-32 md:pt-40 pb-24">
         <div className="container-content">
-          <Reveal>
-            <Link to="/#projects" className="eyebrow text-muted hover:text-primary transition-colors">
-              ← All projects
-            </Link>
-          </Reveal>
+          <button onClick={backToWork} className="eyebrow text-muted hover:text-primary transition-colors">
+            ← All work
+          </button>
 
-          <Reveal delay={60}>
-            <p className="eyebrow text-primary mt-8 mb-3">{project.period}</p>
-            {project.link ? (
+          <p className="eyebrow text-primary mt-8 mb-3">Case study · {project.period}</p>
+          <h1 className="text-4xl md:text-6xl leading-tight max-w-3xl mb-5">{project.title}</h1>
+          <p className="text-xl text-muted max-w-2xl leading-relaxed">{project.tagline}</p>
+
+          <p className="mt-6 text-sm flex flex-wrap gap-x-6 gap-y-2">
+            {project.links.map((l) => (
               <a
-                href={project.link}
+                key={l.url}
+                href={l.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block max-w-3xl mb-6"
+                className="underline underline-offset-4 hover:text-primary"
               >
-                <h1 className="text-3xl md:text-5xl leading-tight border-b border-transparent hover:border-current transition-colors duration-200">
-                  {project.title}
-                </h1>
+                {l.label} ↗<span className="sr-only"> (opens in a new tab)</span>
               </a>
-            ) : (
-              <h1 className="text-3xl md:text-5xl leading-tight max-w-3xl mb-6">
-                {project.title}
-              </h1>
-            )}
-            <p className="text-xl text-muted max-w-2xl leading-relaxed">{project.tagline}</p>
-          </Reveal>
+            ))}
+          </p>
 
-          <Reveal delay={100}>
-            <div className="flex flex-wrap gap-2 mt-8">
-              {project.tech.map((t) => (
-                <span key={t} className="font-mono text-xs border border-border px-3 py-1.5 text-muted">
-                  {t}
-                </span>
-              ))}
-            </div>
-          </Reveal>
+          {project.caveat && (
+            <p className="mt-6 max-w-2xl border-l-2 border-accent pl-4 text-sm text-ink/85 leading-relaxed">{project.caveat}</p>
+          )}
 
-          {project.detail?.stat && (
-            <Reveal delay={140}>
-              <div className="grid sm:grid-cols-3 gap-6 mt-14 border-y border-border py-10">
-                {project.detail.stat.map((s) => (
-                  <div key={s.label}>
-                    <p className="text-3xl md:text-4xl font-display text-primary">{s.value}</p>
-                    <p className="text-sm text-muted mt-1">{s.label}</p>
-                  </div>
-                ))}
+          <dl className="grid md:grid-cols-3 gap-8 mt-12 border-y border-border py-8">
+            {[
+              ['User problem', project.problem],
+              ['My contribution', project.contribution],
+              ['Key decision', project.decision],
+            ].map(([k, v]) => (
+              <div key={k}>
+                <dt className="font-mono text-[11px] uppercase tracking-wide text-muted">{k}</dt>
+                <dd className="mt-2 leading-relaxed">{v}</dd>
+              </div>
+            ))}
+          </dl>
+
+          {project.image && (
+            <Reveal>
+              <figure className="mt-14">
+                <img
+                  src={`${import.meta.env.BASE_URL}${project.image.src}`}
+                  alt={project.image.alt}
+                  width={1360}
+                  height={860}
+                  loading="lazy"
+                  className="w-full h-auto border border-border"
+                />
+                <figcaption className="text-sm text-muted mt-3">
+                  Screenshot of the deployed app using its built-in sample data.
+                </figcaption>
+              </figure>
+            </Reveal>
+          )}
+
+          {project.architecture && (
+            <Reveal>
+              <div className="mt-14">
+                <ArchitectureDiagram arch={project.architecture} />
               </div>
             </Reveal>
           )}
 
-          <div className="grid md:grid-cols-[1.5fr_1fr] gap-14 mt-16">
-            <div className="space-y-12">
-              {project.detail ? (
-                <>
-                  <Reveal>
-                    <p className="text-lg text-muted leading-relaxed">{project.detail.overview}</p>
-                  </Reveal>
-                  {project.detail.sections.map((s, i) => (
-                    <Reveal key={s.heading} delay={i * 60}>
-                      <div>
-                        <h2 className="text-xl font-medium mb-3">{s.heading}</h2>
-                        <p className="text-muted leading-relaxed">{s.body}</p>
-                      </div>
-                    </Reveal>
-                  ))}
-                </>
-              ) : (
-                <Reveal>
-                  <div>
-                    <h2 className="text-xl font-medium mb-4">Highlights</h2>
-                    <ul className="space-y-3">
-                      {project.bullets.map((b) => (
-                        <li key={b} className="flex gap-3 text-muted leading-relaxed">
-                          <span className="text-accent mt-2 shrink-0 w-1.5 h-1.5 rounded-full bg-accent" />
-                          <span>{b}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </Reveal>
-              )}
-            </div>
+          <div className="mt-16 max-w-3xl space-y-12">
+            <p className="text-lg text-muted leading-relaxed">{detail.overview}</p>
 
-            <div className="space-y-8">
-              {project.detail?.stack && (
-                <Reveal delay={80}>
-                  <div className="border border-border bg-surface/50 p-6">
-                    <p className="eyebrow text-muted mb-5">Tech stack</p>
-                    <dl className="space-y-3">
-                      {project.detail.stack.map((row) => (
-                        <div key={row.layer} className="flex justify-between gap-4 text-sm">
-                          <dt className="text-muted font-mono text-xs pt-0.5">{row.layer}</dt>
-                          <dd className="text-ink text-right">{row.tech}</dd>
-                        </div>
-                      ))}
-                    </dl>
-                  </div>
-                </Reveal>
-              )}
-              {project.detail && (
-                <Reveal delay={120}>
-                  <div className="border border-border bg-surface/50 p-6">
-                    <p className="eyebrow text-muted mb-4">Key highlights</p>
-                    <ul className="space-y-3">
-                      {project.bullets.map((b) => (
-                        <li key={b} className="flex gap-3 text-sm text-muted leading-relaxed">
-                          <span className="text-accent mt-1.5 shrink-0 w-1 h-1 rounded-full bg-accent" />
-                          <span>{b}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </Reveal>
-              )}
-            </div>
+            <section aria-labelledby="highlights-h">
+              <h2 id="highlights-h" className="text-xl font-medium mb-3">Highlights</h2>
+              <ul className="space-y-2 text-muted leading-relaxed list-disc pl-5">
+                {project.bullets.map((b) => (
+                  <li key={b}>{b}</li>
+                ))}
+              </ul>
+            </section>
+
+            {detail.sections.map((s) => (
+              <section key={s.heading}>
+                <h2 className="text-xl font-medium mb-3">{s.heading}</h2>
+                <p className="text-muted leading-relaxed">{s.body}</p>
+              </section>
+            ))}
           </div>
 
-          <Reveal delay={100}>
-            <div className="mt-24 pt-10 border-t border-border flex flex-wrap justify-between gap-6">
-              <Link to={`/projects/${prev.slug}`} className="group max-w-xs">
-                <p className="eyebrow text-muted mb-1">← Previous</p>
-                <p className="text-ink group-hover:text-primary transition-colors">{prev.title}</p>
-              </Link>
-              <Link to={`/projects/${next.slug}`} className="group max-w-xs text-right ml-auto">
-                <p className="eyebrow text-muted mb-1">Next →</p>
-                <p className="text-ink group-hover:text-primary transition-colors">{next.title}</p>
-              </Link>
-            </div>
-          </Reveal>
+          <p className="mt-14 font-mono text-xs text-muted">Built with: {project.tech.join(' · ')}</p>
+
+          <div className="mt-16 pt-10 border-t border-border flex flex-wrap justify-between gap-6">
+            <Link to={`/projects/${prev.slug}`} className="group max-w-xs">
+              <p className="eyebrow text-muted mb-1">← Previous</p>
+              <p className="text-ink group-hover:text-primary transition-colors">{prev.title}</p>
+            </Link>
+            <Link to={`/projects/${next.slug}`} className="group max-w-xs text-right ml-auto">
+              <p className="eyebrow text-muted mb-1">Next →</p>
+              <p className="text-ink group-hover:text-primary transition-colors">{next.title}</p>
+            </Link>
+          </div>
         </div>
       </main>
       <Footer />
